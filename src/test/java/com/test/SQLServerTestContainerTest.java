@@ -22,8 +22,10 @@ public class SQLServerTestContainerTest {
     public void testSimple() throws SQLException {
         try (MSSQLServerContainer<?> mssqlServer = new MSSQLServerContainer<>(MSSQL_SERVER_IMAGE)) {
             mssqlServer.acceptLicense();
+            mssqlServer.withInitScript("file:src/main/resources/init.sql");
             mssqlServer.start();
-            ResultSet resultSet = performQuery(mssqlServer, "SELECT 1");
+
+            ResultSet resultSet = performQuery(mssqlServer, "SELECT Sales.Region");
 
             int resultSetInt = resultSet.getInt(1);
             assertEquals("A basic SELECT query succeeds", 1, resultSetInt);
