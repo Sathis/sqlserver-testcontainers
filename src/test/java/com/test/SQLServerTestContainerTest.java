@@ -5,6 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Test;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.MSSQLServerContainer;
+import org.testcontainers.utility.DockerImageName;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -15,18 +16,17 @@ import static org.junit.Assert.assertEquals;
 
 public class SQLServerTestContainerTest {
 
-    String MSSQL_SERVER_IMAGE = "mcr.microsoft.com/mssql/server:2017-CU12";
+    DockerImageName MSSQL_SERVER_IMAGE = DockerImageName.parse("mcr.microsoft.com/mssql/server:2017-CU12");
 
     @Test
     public void testSimple() throws SQLException {
-        MSSQLServerContainer mssqlServer = new MSSQLServerContainer(MSSQL_SERVER_IMAGE);
+        try (MSSQLServerContainer<?> mssqlServer = new MSSQLServerContainer<>(MSSQL_SERVER_IMAGE)) {
+            mssqlServer.start();
+            ResultSet resultSet = performQuery(mssqlServer, "SELECT 1");
 
-        mssqlServer.start();
-
-        ResultSet resultSet = performQuery(mssqlServer, "SELECT 1");
-
-        int resultSetInt = resultSet.getInt(1);
-        assertEquals("A basic SELECT query succeeds", 1, resultSetInt);
+            int resultSetInt = resultSet.getInt(1);
+            assertEquals("A basic SELECT query succeeds", 1, resultSetInt);
+        }
     }
 
     protected ResultSet performQuery(JdbcDatabaseContainer<?> container, String sql)
