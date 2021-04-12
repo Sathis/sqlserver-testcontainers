@@ -1,11 +1,8 @@
 CREATE SCHEMA Sales;
-GO
 
 CREATE TABLE Sales.Region
 (Region_id INT NOT NULL,
-Region_Name CHAR(20) NOT NULL)
-WITH (DISTRIBUTION = REPLICATE);
-GO
+Region_Name CHAR(20) NOT NULL);
 
-insert into Sales.Region(1, "chennai");
+insert into Sales.Region values(1, 'chennai');
 

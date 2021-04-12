@@ -25,7 +25,7 @@ public class SQLServerTestContainerTest {
             mssqlServer.withInitScript("init.sql");
             mssqlServer.start();
 
-            ResultSet resultSet = performQuery(mssqlServer, "SELECT Sales.Region");
+            ResultSet resultSet = performQuery(mssqlServer, "SELECT * from Sales.Region");
 
             int resultSetInt = resultSet.getInt(1);
             assertEquals("A basic SELECT query succeeds", 1, resultSetInt);
