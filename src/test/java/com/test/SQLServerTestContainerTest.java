@@ -22,7 +22,7 @@ public class SQLServerTestContainerTest {
     public void testSimple() throws SQLException {
         try (MSSQLServerContainer<?> mssqlServer = new MSSQLServerContainer<>(MSSQL_SERVER_IMAGE)) {
             mssqlServer.acceptLicense();
-            mssqlServer.withInitScript("file:src/main/resources/init.sql");
+            mssqlServer.withInitScript("init.sql");
             mssqlServer.start();
 
             ResultSet resultSet = performQuery(mssqlServer, "SELECT Sales.Region");
