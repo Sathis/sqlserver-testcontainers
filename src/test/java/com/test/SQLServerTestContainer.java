@@ -1,3 +1,5 @@
+package com.test;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.Test;
@@ -27,7 +29,8 @@ public class SQLServerTestContainer {
         assertEquals("A basic SELECT query succeeds", 1, resultSetInt);
     }
 
-    protected ResultSet performQuery(JdbcDatabaseContainer<?> container, String sql) throws SQLException {
+    protected ResultSet performQuery(JdbcDatabaseContainer<?> container, String sql)
+            throws SQLException {
         DataSource ds = getDataSource(container);
         Statement statement = ds.getConnection().createStatement();
         statement.execute(sql);
