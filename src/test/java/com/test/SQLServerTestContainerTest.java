@@ -13,7 +13,7 @@ import java.sql.Statement;
 
 import static org.junit.Assert.assertEquals;
 
-public class SQLServerTestContainer {
+public class SQLServerTestContainerTest {
 
     String MSSQL_SERVER_IMAGE = "mcr.microsoft.com/mssql/server:2017-CU12";
 
