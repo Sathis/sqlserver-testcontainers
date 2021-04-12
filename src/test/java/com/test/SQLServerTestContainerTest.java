@@ -21,6 +21,7 @@ public class SQLServerTestContainerTest {
     @Test
     public void testSimple() throws SQLException {
         try (MSSQLServerContainer<?> mssqlServer = new MSSQLServerContainer<>(MSSQL_SERVER_IMAGE)) {
+            mssqlServer.acceptLicense();
             mssqlServer.start();
             ResultSet resultSet = performQuery(mssqlServer, "SELECT 1");
 
